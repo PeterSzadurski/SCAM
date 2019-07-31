@@ -8,8 +8,7 @@ using System.Web.UI.WebControls;
 
 namespace SCAM
 {
-
-    public enum Suit { hearts, spades, clubs, diamonds }
+    public enum Suit { h, s, c, d }
     public enum CardType { Normal, Ace, Jack, King, Queen }
 
 
@@ -48,7 +47,7 @@ namespace SCAM
         {
             if (this.Worth <= 10)
             {
-                return this.Worth + " of " + this.suit;
+                return this.Worth + this.suit.ToString();
             }
             else
             {
@@ -56,19 +55,19 @@ namespace SCAM
                 switch (this.Worth)
                 {
                     case 11:
-                        specialWorth = "Jack";
+                        specialWorth = "J";
                         break;
                     case 12:
-                        specialWorth = "King";
+                        specialWorth = "K";
                         break;
                     case 13:
-                        specialWorth = "Queen";
+                        specialWorth = "Q";
                         break;
                     default:
-                        specialWorth = "Jack";
+                        specialWorth = "J";
                         break;
                 }
-                return specialWorth + " of " + this.suit;
+                return specialWorth + this.suit.ToString();
             }
         }
 
@@ -84,10 +83,10 @@ namespace SCAM
             cards = new ArrayList();
             for (int i = 1; i < 14; i++)
             { // 11 is jack, 12 is king, 13 is queen
-                cards.Add(new Card(i, Suit.clubs));
-                cards.Add(new Card(i, Suit.diamonds));
-                cards.Add(new Card(i, Suit.hearts));
-                cards.Add(new Card(i, Suit.spades));
+                cards.Add(new Card(i, Suit.c));
+                cards.Add(new Card(i, Suit.d));
+                cards.Add(new Card(i, Suit.h));
+                cards.Add(new Card(i, Suit.s));
             }
 
         }
@@ -102,7 +101,7 @@ namespace SCAM
             return card;
         }
 
-
+        
 
 
     }
@@ -110,18 +109,65 @@ namespace SCAM
 
     public partial class BlackJack : System.Web.UI.Page
     {
-       public int HandWorth(List<Card> hand) {
+        public Random rnd = new Random();
+        Deck deck = new Deck();
+
+         void Hit() {
+            ((List<Card>)Session["PlayerHand"]).Add(deck.RandomPick(rnd));
+            playerTable.DataSource = ((List<Card>)Session["PlayerHand"]);
+
+            playerTable.DataBind();
+            if (HandWorth(((List<Card>)Session["PlayerHand"])) > 21) {
+                lbWin.Text = "lose";
+            }
+            lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
+            lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
+
+
+        }
+        void Stay(decimal multiplier) {
+            // draw the dealer until at least 17
+            while (HandWorth(((List<Card>)Session["DealerHand"])) < 17) {
+                ((List<Card>)Session["DealerHand"]).Add(deck.RandomPick(rnd));
+            }
+            //((List<Card>)Session["DealerHand"]).Add(deck.RandomPick(rnd));
+
+            int dealerHandWorth = HandWorth(((List<Card>)Session["DealerHand"]));
+            int playerHandWorth = HandWorth(((List<Card>)Session["PlayerHand"]));
+            if ((21 - HandWorth(((List<Card>)Session["DealerHand"])) == (21 - HandWorth(((List<Card>)Session["PlayerHand"]))))) {
+                lbWin.Text = "break even";
+            }
+             else if ((playerHandWorth >= 21) && (21 - playerHandWorth >= 0) && ((21  - playerHandWorth < 21 - dealerHandWorth) || (21 - dealerHandWorth < 0))) {
+                lbWin.Text = "Player win";
+                decimal money = Convert.ToDecimal(lbMoney.Text);
+                money *= multiplier;
+                lbMoney.Text = money.ToString();
+            }
+            else if ((dealerHandWorth >= 21) && (21 - dealerHandWorth >= 0) && ((21 - dealerHandWorth < 21 - playerHandWorth) || (21 - playerHandWorth < 0))) {
+                lbWin.Text = "Dealer Win";
+            }
+
+
+
+            dealerTable.DataSource = ((List<Card>)Session["DealerHand"]);
+            dealerTable.DataBind();
+            lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
+            lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
+        }
+        public int HandWorth(List<Card> hand) {
             int handWorth = 0;
             int acesCount = 0;
             for (int i = 0; i < hand.Count; i++) {
-                if (hand[i].worth == 1)
-                {
+                if (hand[i].worth == 1) {
                     acesCount++;
+                }
+                else if (hand[i].worth > 10) {
+                    handWorth += 10;
                 }
                 else {
                     handWorth += hand[i].worth;
                 }
-    
+
             }
             // consider the aces
 
@@ -140,5 +186,41 @@ namespace SCAM
         {
 
         }
+
+        protected void btnStart_Click(object sender, EventArgs e) {
+            List<Card> dealerHand = new List<Card>();
+            List<Card> playerHand = new List<Card>();
+
+
+            playerHand.Add(deck.RandomPick(rnd));
+            playerHand.Add(deck.RandomPick(rnd));
+            dealerHand.Add(deck.RandomPick(rnd));
+            dealerHand.Add(deck.RandomPick(rnd));
+            Session["PlayerHand"] = playerHand;
+            Session["dealerHand"] = dealerHand;
+            playerTable.DataSource = Session["PlayerHand"];
+            playerTable.DataBind();
+            dealerTable.DataSource = Session["DealerHand"];
+            dealerTable.DataBind();
+            lbMoney.Text = tbMoney.Text;
+
+            lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
+            lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
+        }
+
+        protected void btnHit_Click(object sender, EventArgs e) {
+
+            Hit();
+        }
+
+        protected void btnStay_Click(object sender, EventArgs e) {
+            Stay(2);
+
+        }
+
+        protected void btnDoubleDown_Click(object sender, EventArgs e) {
+            Hit();
+            Stay(3);
+            }
+        }
     }
-}
