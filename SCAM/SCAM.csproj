@@ -107,6 +107,7 @@
     <Content Include="Assets\Images\Cards\9D.png" />
     <Content Include="Assets\Images\Cards\9H.png" />
     <Content Include="Assets\Images\Cards\9S.png" />
+    <Content Include="Assets\Images\Cards\Down.png" />
     <Content Include="Assets\Images\Cards\JC.png" />
     <Content Include="Assets\Images\Cards\JD.png" />
     <Content Include="Assets\Images\Cards\JH.png" />

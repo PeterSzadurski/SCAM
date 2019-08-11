@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 namespace SCAM
 {
     public enum Suit { h, s, c, d }
-    public enum CardType { Normal, Ace, Jack, King, Queen }
+
 
 
     public class Card
@@ -41,35 +41,38 @@ namespace SCAM
                     return 10;
                 }
             }
+
         }
 
-        public string ToString()
-        {
-            if (this.Worth <= 10)
-            {
-                return this.Worth + this.suit.ToString();
+        public string ToString() {
+            if (this.worth <= 10) {
+                return this.worth + this.suit.ToString();
             }
-            else
-            {
-                string specialWorth;
-                switch (this.Worth)
-                {
+            else {
+                char symbol = ' ';
+                switch (this.worth) {
                     case 11:
-                        specialWorth = "J";
+                        symbol = 'J';
                         break;
                     case 12:
-                        specialWorth = "K";
+                        symbol = 'K';
                         break;
                     case 13:
-                        specialWorth = "Q";
-                        break;
-                    default:
-                        specialWorth = "J";
+                        symbol = 'Q';
                         break;
                 }
-                return specialWorth + this.suit.ToString();
+                return symbol + this.suit.ToString();
             }
         }
+
+
+
+        public string cardImage() {
+            return "~/Assets/Images/Cards/" + this.ToString() + ".png";
+        }
+
+
+
 
     }
     class Deck
@@ -107,12 +110,11 @@ namespace SCAM
     }
 
 
-    public partial class BlackJack : System.Web.UI.Page
-    {
+    public partial class BlackJack : System.Web.UI.Page {
         public Random rnd = new Random();
         Deck deck = new Deck();
 
-         void Hit() {
+        void Hit() {
             ((List<Card>)Session["PlayerHand"]).Add(deck.RandomPick(rnd));
             playerTable.DataSource = ((List<Card>)Session["PlayerHand"]);
 
@@ -137,7 +139,7 @@ namespace SCAM
             if ((21 - HandWorth(((List<Card>)Session["DealerHand"])) == (21 - HandWorth(((List<Card>)Session["PlayerHand"]))))) {
                 lbWin.Text = "break even";
             }
-             else if ((playerHandWorth >= 21) && (21 - playerHandWorth >= 0) && ((21  - playerHandWorth < 21 - dealerHandWorth) || (21 - dealerHandWorth < 0))) {
+            else if ((playerHandWorth >= 21) && (21 - playerHandWorth >= 0) && ((21 - playerHandWorth < 21 - dealerHandWorth) || (21 - dealerHandWorth < 0))) {
                 lbWin.Text = "Player win";
                 decimal money = Convert.ToDecimal(lbMoney.Text);
                 money *= multiplier;
@@ -172,8 +174,7 @@ namespace SCAM
             // consider the aces
 
             for (int i = 0; i < acesCount; i++) {
-                if (handWorth + 11 > 21)
-                {
+                if (handWorth + 11 > 21) {
                     handWorth++;
                 }
                 else {
@@ -182,9 +183,25 @@ namespace SCAM
             }
             return handWorth;
         }
-        protected void Page_Load(object sender, EventArgs e)
-        {
+        protected void Page_Load(object sender, EventArgs e) {
 
+        }
+
+        public void DisplayPlayerHand() {
+            List<Card> playerHand = ((List<Card>)Session["PlayerHand"]);
+            for (int i = 0; i < playerHand.Count; i++)
+            ((Image)this.Page.FindControl("pCard" + i)).ImageUrl = playerHand[i].cardImage();
+        }
+        public void DisplayDealerHand(bool gameEnd) {
+            List<Card> dealerHand = ((List<Card>)Session["DealerHand"]);
+            if (gameEnd) {
+                ((Image)this.Page.FindControl("dCard0")).ImageUrl = dealerHand[0].cardImage();
+            }
+            else {
+                ((Image)this.Page.FindControl("dCard0")).ImageUrl = "~/Assets/Images/Cards/Down.png";
+            }
+            for (int i = 1; i < dealerHand.Count; i++)
+                ((Image)this.Page.FindControl("dCard" + i)).ImageUrl = dealerHand[i].cardImage();
         }
 
         protected void btnStart_Click(object sender, EventArgs e) {
@@ -204,22 +221,32 @@ namespace SCAM
             dealerTable.DataBind();
             lbMoney.Text = tbMoney.Text;
 
+            
+           
+
             lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
             lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
+            DisplayPlayerHand();
+            DisplayDealerHand(false);
         }
 
         protected void btnHit_Click(object sender, EventArgs e) {
-
+            
             Hit();
+            DisplayPlayerHand();
+
         }
 
         protected void btnStay_Click(object sender, EventArgs e) {
             Stay(2);
+            DisplayDealerHand(true);
 
         }
 
         protected void btnDoubleDown_Click(object sender, EventArgs e) {
             Hit();
+            DisplayPlayerHand();
+            DisplayDealerHand(true);
             Stay(3);
             }
         }

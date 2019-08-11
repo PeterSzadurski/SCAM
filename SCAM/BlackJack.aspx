@@ -9,6 +9,17 @@
         .auto-style1 {
             width: 100%;
         }
+
+        
+.hand-container {
+  display: float;
+  
+
+}
+.card-item {
+
+}
+
     </style>
 </head>
 <body>
@@ -59,6 +70,25 @@
             </table>
             <br />
             <asp:Label ID="lbWin" runat="server"></asp:Label>
+            <br />
+        <div class ="hand-container" id="dealerContainer" runat="server">
+            <asp:Image ID="dCard0" runat="server" Height="230px" />
+            <asp:Image ID="dCard1" runat="server" Height="230px" />
+            <asp:Image ID="dCard2" runat="server" Height="230px" />
+            <asp:Image ID="dCard3" runat="server" Height="230px" />
+            <asp:Image ID="dCard4" runat="server" Height="230px" />
+            <asp:Image ID="dCard5" runat="server" Height="230px" />
+            <asp:Image ID="dCard6" runat="server" Height="230px" />
+        </div>
+        </div>
+        <div class ="hand-container" id="playerContainer" runat="server">
+            <asp:Image ID="pCard0" runat="server" Height="230px" />
+            <asp:Image ID="pCard1" runat="server" Height="230px" />
+            <asp:Image ID="pCard2" runat="server" Height="230px" />
+            <asp:Image ID="pCard3" runat="server" Height="230px" />
+            <asp:Image ID="pCard4" runat="server" Height="230px" />
+            <asp:Image ID="pCard5" runat="server" Height="230px" />
+            <asp:Image ID="pCard6" runat="server" Height="230px" />
         </div>
     </form>
 </body>
