@@ -10,42 +10,60 @@
 namespace SCAM {
     
     
-    public partial class Login {
+    public partial class Master {
         
         /// <summary>
-        /// tbLogin control.
+        /// head control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbLogin;
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder head;
         
         /// <summary>
-        /// tbPass control.
+        /// form1 control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox tbPass;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// btnLogin control.
+        /// Logo control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnLogin;
+        protected global::System.Web.UI.WebControls.Image Logo;
         
         /// <summary>
-        /// lbResult control.
+        /// lbLoginOrLogout control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbResult;
+        protected global::System.Web.UI.WebControls.LinkButton lbLoginOrLogout;
+        
+        /// <summary>
+        /// lbRegisterOrAccount control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbRegisterOrAccount;
+        
+        /// <summary>
+        /// ContentPlaceHolder control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ContentPlaceHolder ContentPlaceHolder;
     }
 }

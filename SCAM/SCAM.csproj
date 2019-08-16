@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Account.aspx" />
     <Content Include="Assets\Images\Cards\10C.png" />
     <Content Include="Assets\Images\Cards\10D.png" />
     <Content Include="Assets\Images\Cards\10H.png" />
@@ -120,16 +121,25 @@
     <Content Include="Assets\Images\Cards\QD.png" />
     <Content Include="Assets\Images\Cards\QH.png" />
     <Content Include="Assets\Images\Cards\QS.png" />
+    <Content Include="Assets\Images\Web\logo.png" />
     <Content Include="BlackJack.aspx" />
-    <Content Include="Index.aspx" />
+    <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
-    <Content Include="Profile.aspx" />
+    <Content Include="Owner.aspx" />
+    <Content Include="Register.aspx" />
     <Content Include="Roulette.aspx" />
     <Content Include="Scoreboard.aspx" />
     <Content Include="UserAccount.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Account.aspx.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Account.aspx.designer.cs">
+      <DependentUpon>Account.aspx</DependentUpon>
+    </Compile>
     <Compile Include="BlackJack.aspx.cs">
       <DependentUpon>BlackJack.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -139,12 +149,12 @@
     </Compile>
     <Compile Include="Creditcard.cs" />
     <Compile Include="DAO.cs" />
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
@@ -153,15 +163,29 @@
     <Compile Include="Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Player.cs" />
-    <Compile Include="Profile.aspx.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
+    <Compile Include="Master.Master.cs">
+      <DependentUpon>Master.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Profile.aspx.designer.cs">
-      <DependentUpon>Profile.aspx</DependentUpon>
+    <Compile Include="Master.Master.designer.cs">
+      <DependentUpon>Master.Master</DependentUpon>
     </Compile>
+    <Compile Include="Owner.aspx.cs">
+      <DependentUpon>Owner.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Owner.aspx.designer.cs">
+      <DependentUpon>Owner.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Register.aspx.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Register.aspx.designer.cs">
+      <DependentUpon>Register.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Roulette.aspx.cs">
       <DependentUpon>Roulette.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -185,6 +209,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Master.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

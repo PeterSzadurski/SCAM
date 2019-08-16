@@ -90,6 +90,15 @@
             <asp:Image ID="pCard5" runat="server" Height="230px" />
             <asp:Image ID="pCard6" runat="server" Height="230px" />
         </div>
+        <div class ="hand-container" id="splitContainer" runat="server">
+            <asp:Image ID="sCard0" runat="server" Height="230px" />
+            <asp:Image ID="sCard1" runat="server" Height="230px" />
+            <asp:Image ID="sCard2" runat="server" Height="230px" />
+            <asp:Image ID="sCard3" runat="server" Height="230px" />
+            <asp:Image ID="sCard4" runat="server" Height="230px" />
+            <asp:Image ID="sCard5" runat="server" Height="230px" />
+            <asp:Image ID="sCard6" runat="server" Height="230px" />
+        </div>
     </form>
 </body>
 </html>

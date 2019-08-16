@@ -7,11 +7,11 @@ using System.Web.UI.WebControls;
 
 namespace SCAM
 {
-    public partial class Index : System.Web.UI.Page
+    public partial class Home : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Session["lastPage"] = "Home.aspx";
         }
     }
 }

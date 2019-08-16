@@ -114,6 +114,20 @@ namespace SCAM
         public Random rnd = new Random();
         Deck deck = new Deck();
 
+       /* <summary>
+        * Allows player to split the deck if it contains pairs or if it is equal to 16
+            </summary> */
+        void Split() {
+            List<Card> playerHand = ((List<Card>)Session["PlayerHand"]);
+            /*<remarks>
+             * The conditions stop the function from working unless it's a valid split.
+             * </remarks>
+             */
+            if ((playerHand.Count == 2) && (playerHand[0].Worth == playerHand[1].Worth || HandWorth(playerHand) == 16)) {
+
+            }
+        }
+
         void Hit() {
             ((List<Card>)Session["PlayerHand"]).Add(deck.RandomPick(rnd));
             playerTable.DataSource = ((List<Card>)Session["PlayerHand"]);
@@ -121,6 +135,7 @@ namespace SCAM
             playerTable.DataBind();
             if (HandWorth(((List<Card>)Session["PlayerHand"])) > 21) {
                 lbWin.Text = "lose";
+                DisplayDealerHand(true);
             }
             lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
             lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
@@ -138,15 +153,19 @@ namespace SCAM
             int playerHandWorth = HandWorth(((List<Card>)Session["PlayerHand"]));
             if ((21 - HandWorth(((List<Card>)Session["DealerHand"])) == (21 - HandWorth(((List<Card>)Session["PlayerHand"]))))) {
                 lbWin.Text = "break even";
+                DisplayDealerHand(true);
+
             }
             else if ((playerHandWorth >= 21) && (21 - playerHandWorth >= 0) && ((21 - playerHandWorth < 21 - dealerHandWorth) || (21 - dealerHandWorth < 0))) {
                 lbWin.Text = "Player win";
+                DisplayDealerHand(true);
                 decimal money = Convert.ToDecimal(lbMoney.Text);
                 money *= multiplier;
                 lbMoney.Text = money.ToString();
             }
             else if ((dealerHandWorth >= 21) && (21 - dealerHandWorth >= 0) && ((21 - dealerHandWorth < 21 - playerHandWorth) || (21 - playerHandWorth < 0))) {
                 lbWin.Text = "Dealer Win";
+                DisplayDealerHand(true);
             }
 
 

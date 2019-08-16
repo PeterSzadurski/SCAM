@@ -5,7 +5,11 @@ using System.Web;
 
 namespace SCAM
 {
-    public class DAO
-    {// test for commit
+    public static class DAO
+    {
+        public static string ConnectionString()
+        {
+            return "server=DESKTOP-20E1M0S\\SQLEXPRESS; database=ScamProject;Integrated Security = SSPI";
+        }
     }
 }
