@@ -51,7 +51,7 @@ namespace SCAM
                         }
 
                             conn.Close();
-                            Response.Redirect("Home.aspx");
+                            Response.Redirect("Account.aspx");
                         }
                     }
                     catch (Exception ex) {

@@ -122,7 +122,7 @@
     <Content Include="Assets\Images\Cards\QH.png" />
     <Content Include="Assets\Images\Cards\QS.png" />
     <Content Include="Assets\Images\Web\logo.png" />
-    <Content Include="BlackJack.aspx" />
+    <Content Include="Blackjack.aspx" />
     <Content Include="Home.aspx" />
     <Content Include="Login.aspx" />
     <Content Include="Owner.aspx" />
@@ -140,12 +140,11 @@
     <Compile Include="Account.aspx.designer.cs">
       <DependentUpon>Account.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BlackJack.aspx.cs">
-      <DependentUpon>BlackJack.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
+    <Compile Include="Blackjack.aspx.cs">
+      <DependentUpon>Blackjack.aspx</DependentUpon>
     </Compile>
-    <Compile Include="BlackJack.aspx.designer.cs">
-      <DependentUpon>BlackJack.aspx</DependentUpon>
+    <Compile Include="Blackjack.aspx.designer.cs">
+      <DependentUpon>Blackjack.aspx</DependentUpon>
     </Compile>
     <Compile Include="Creditcard.cs" />
     <Compile Include="DAO.cs" />

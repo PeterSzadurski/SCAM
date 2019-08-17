@@ -1,10 +1,7 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="BlackJack.aspx.cs" Inherits="SCAM.BlackJack" %>
-
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title></title>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Blackjack.aspx.cs" Inherits="SCAM.Blackjack2" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
     <style type="text/css">
         .auto-style1 {
             width: 100%;
@@ -62,6 +59,8 @@
                 <tr>
                     <td>
                         <asp:Label ID="lbPlayerMoney" runat="server"></asp:Label>
+                    &nbsp;
+                        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                     </td>
                     <td>
                         <asp:Label ID="lbDealerMoney" runat="server"></asp:Label>
@@ -100,5 +99,4 @@
             <asp:Image ID="sCard6" runat="server" Height="230px" />
         </div>
     </form>
-</body>
-</html>
+</asp:Content>

@@ -8,16 +8,18 @@ namespace SCAM
 {
     public class Player
     {
-       public decimal money { get; }
-       public string username { get; }
-       public int slotWins { get; }
-       public int blackjackWins { get; }
-       public int rouletteWins { get; }
-       public int slotlosses { get; }
-       public int blackjacklosses { get; }
-       public int roulettelosses { get; }
-       public string role { get; }
-       public DateTime date { get; }
+        public decimal money { get; set; }
+        public string username { get; }
+        public int slotWins { get; set; }
+        public int blackjackWins { get; set; }
+        public int rouletteWins { get; set; }
+        public int slotlosses { get; set; }
+        public int blackjacklosses { get; set; }
+        public int roulettelosses { get; set; }
+        public string role { get; set; }
+        public DateTime date { get; }
+
+
 
 
         public Player(string Username, int BlackjackWins,

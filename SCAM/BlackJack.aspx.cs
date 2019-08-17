@@ -6,8 +6,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace SCAM
-{
+namespace SCAM { 
+
     public enum Suit { h, s, c, d }
 
 
@@ -44,13 +44,17 @@ namespace SCAM
 
         }
 
-        public string ToString() {
-            if (this.worth <= 10) {
+        public string ToString()
+        {
+            if (this.worth <= 10)
+            {
                 return this.worth + this.suit.ToString();
             }
-            else {
+            else
+            {
                 char symbol = ' ';
-                switch (this.worth) {
+                switch (this.worth)
+                {
                     case 11:
                         symbol = 'J';
                         break;
@@ -67,7 +71,8 @@ namespace SCAM
 
 
 
-        public string cardImage() {
+        public string cardImage()
+        {
             return "~/Assets/Images/Cards/" + this.ToString() + ".png";
         }
 
@@ -104,37 +109,46 @@ namespace SCAM
             return card;
         }
 
-        
+
 
 
     }
 
 
-    public partial class BlackJack : System.Web.UI.Page {
+    public partial class Blackjack : System.Web.UI.Page
+    {
+        Player player;
+        
         public Random rnd = new Random();
         Deck deck = new Deck();
 
-       /* <summary>
-        * Allows player to split the deck if it contains pairs or if it is equal to 16
-            </summary> */
-        void Split() {
+        /* <summary>
+         * Allows player to split the deck if it contains pairs or if it is equal to 16
+             </summary> */
+        void Split()
+        {
             List<Card> playerHand = ((List<Card>)Session["PlayerHand"]);
             /*<remarks>
              * The conditions stop the function from working unless it's a valid split.
              * </remarks>
              */
-            if ((playerHand.Count == 2) && (playerHand[0].Worth == playerHand[1].Worth || HandWorth(playerHand) == 16)) {
+            if ((playerHand.Count == 2) && (playerHand[0].Worth == playerHand[1].Worth || HandWorth(playerHand) == 16))
+            {
 
             }
         }
 
-        void Hit() {
+        void Hit()
+        {
             ((List<Card>)Session["PlayerHand"]).Add(deck.RandomPick(rnd));
+
             playerTable.DataSource = ((List<Card>)Session["PlayerHand"]);
 
             playerTable.DataBind();
-            if (HandWorth(((List<Card>)Session["PlayerHand"])) > 21) {
+            if (HandWorth(((List<Card>)Session["PlayerHand"])) > 21)
+            {
                 lbWin.Text = "lose";
+
                 DisplayDealerHand(true);
             }
             lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
@@ -142,28 +156,33 @@ namespace SCAM
 
 
         }
-        void Stay(decimal multiplier) {
+        void Stay(decimal multiplier)
+        {
             // draw the dealer until at least 17
-            while (HandWorth(((List<Card>)Session["DealerHand"])) < 17) {
+            while (HandWorth(((List<Card>)Session["DealerHand"])) < 17)
+            {
                 ((List<Card>)Session["DealerHand"]).Add(deck.RandomPick(rnd));
             }
             //((List<Card>)Session["DealerHand"]).Add(deck.RandomPick(rnd));
 
             int dealerHandWorth = HandWorth(((List<Card>)Session["DealerHand"]));
             int playerHandWorth = HandWorth(((List<Card>)Session["PlayerHand"]));
-            if ((21 - HandWorth(((List<Card>)Session["DealerHand"])) == (21 - HandWorth(((List<Card>)Session["PlayerHand"]))))) {
+            if ((21 - HandWorth(((List<Card>)Session["DealerHand"])) == (21 - HandWorth(((List<Card>)Session["PlayerHand"])))))
+            {
                 lbWin.Text = "break even";
                 DisplayDealerHand(true);
 
             }
-            else if ((playerHandWorth >= 21) && (21 - playerHandWorth >= 0) && ((21 - playerHandWorth < 21 - dealerHandWorth) || (21 - dealerHandWorth < 0))) {
+            else if ((playerHandWorth >= 21) && (21 - playerHandWorth >= 0) && ((21 - playerHandWorth < 21 - dealerHandWorth) || (21 - dealerHandWorth < 0)))
+            {
                 lbWin.Text = "Player win";
                 DisplayDealerHand(true);
                 decimal money = Convert.ToDecimal(lbMoney.Text);
                 money *= multiplier;
                 lbMoney.Text = money.ToString();
             }
-            else if ((dealerHandWorth >= 21) && (21 - dealerHandWorth >= 0) && ((21 - dealerHandWorth < 21 - playerHandWorth) || (21 - playerHandWorth < 0))) {
+            else if ((dealerHandWorth >= 21) && (21 - dealerHandWorth >= 0) && ((21 - dealerHandWorth < 21 - playerHandWorth) || (21 - playerHandWorth < 0)))
+            {
                 lbWin.Text = "Dealer Win";
                 DisplayDealerHand(true);
             }
@@ -175,55 +194,69 @@ namespace SCAM
             lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
             lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
         }
-        public int HandWorth(List<Card> hand) {
+        public int HandWorth(List<Card> hand)
+        {
             int handWorth = 0;
             int acesCount = 0;
-            for (int i = 0; i < hand.Count; i++) {
-                if (hand[i].worth == 1) {
+            for (int i = 0; i < hand.Count; i++)
+            {
+                if (hand[i].worth == 1)
+                {
                     acesCount++;
                 }
-                else if (hand[i].worth > 10) {
+                else if (hand[i].worth > 10)
+                {
                     handWorth += 10;
                 }
-                else {
+                else
+                {
                     handWorth += hand[i].worth;
                 }
 
             }
             // consider the aces
 
-            for (int i = 0; i < acesCount; i++) {
-                if (handWorth + 11 > 21) {
+            for (int i = 0; i < acesCount; i++)
+            {
+                if (handWorth + 11 > 21)
+                {
                     handWorth++;
                 }
-                else {
+                else
+                {
                     handWorth += 11;
                 }
             }
             return handWorth;
         }
-        protected void Page_Load(object sender, EventArgs e) {
-
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            player = (Player)Session["User"];
         }
 
-        public void DisplayPlayerHand() {
+        public void DisplayPlayerHand()
+        {
             List<Card> playerHand = ((List<Card>)Session["PlayerHand"]);
             for (int i = 0; i < playerHand.Count; i++)
-            ((Image)this.Page.FindControl("pCard" + i)).ImageUrl = playerHand[i].cardImage();
+                ((Image)this.Page.FindControl("pCard" + i)).ImageUrl = playerHand[i].cardImage();
         }
-        public void DisplayDealerHand(bool gameEnd) {
+        public void DisplayDealerHand(bool gameEnd)
+        {
             List<Card> dealerHand = ((List<Card>)Session["DealerHand"]);
-            if (gameEnd) {
+            if (gameEnd)
+            {
                 ((Image)this.Page.FindControl("dCard0")).ImageUrl = dealerHand[0].cardImage();
             }
-            else {
+            else
+            {
                 ((Image)this.Page.FindControl("dCard0")).ImageUrl = "~/Assets/Images/Cards/Down.png";
             }
             for (int i = 1; i < dealerHand.Count; i++)
                 ((Image)this.Page.FindControl("dCard" + i)).ImageUrl = dealerHand[i].cardImage();
         }
 
-        protected void btnStart_Click(object sender, EventArgs e) {
+        protected void btnStart_Click(object sender, EventArgs e)
+        {
             List<Card> dealerHand = new List<Card>();
             List<Card> playerHand = new List<Card>();
 
@@ -240,8 +273,8 @@ namespace SCAM
             dealerTable.DataBind();
             lbMoney.Text = tbMoney.Text;
 
-            
-           
+
+
 
             lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
             lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
@@ -249,24 +282,27 @@ namespace SCAM
             DisplayDealerHand(false);
         }
 
-        protected void btnHit_Click(object sender, EventArgs e) {
-            
+        protected void btnHit_Click(object sender, EventArgs e)
+        {
+
             Hit();
             DisplayPlayerHand();
 
         }
 
-        protected void btnStay_Click(object sender, EventArgs e) {
+        protected void btnStay_Click(object sender, EventArgs e)
+        {
             Stay(2);
             DisplayDealerHand(true);
 
         }
 
-        protected void btnDoubleDown_Click(object sender, EventArgs e) {
+        protected void btnDoubleDown_Click(object sender, EventArgs e)
+        {
             Hit();
             DisplayPlayerHand();
             DisplayDealerHand(true);
             Stay(3);
-            }
         }
     }
+}

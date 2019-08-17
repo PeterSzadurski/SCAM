@@ -5,9 +5,27 @@ using System.Web;
 
 namespace SCAM
 {
-    public class Creditcard
+     public class Creditcard
     {
-        static bool ValidCard(long creditCard)
+        public int creditCardId { get; }
+        public string name { get; }
+        public long number { get; }
+        public DateTime expiration { get; }
+        public string ccv { get; }
+        public string username { get; }
+        public Creditcard() {
+
+        }
+        public Creditcard(int ccID, string Name, long num, 
+            DateTime Expiration, string Ccv, string Username) {
+            creditCardId = ccID;
+            name = Name;
+            number = num;
+            expiration = Expiration;
+            ccv = Ccv;
+            username = Username;
+        }
+       public static bool ValidCard(long creditCard)
         {
             if (creditCard.ToString().Length != 16 && creditCard.ToString().Length != 15)
             {

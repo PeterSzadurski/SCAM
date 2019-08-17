@@ -10,7 +10,7 @@
 namespace SCAM {
     
     
-    public partial class BlackJack {
+    public partial class Blackjack2 {
         
         /// <summary>
         /// form1 control.
@@ -101,6 +101,15 @@ namespace SCAM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lbPlayerMoney;
+        
+        /// <summary>
+        /// Label1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
         /// lbDealerMoney control.
