@@ -19,12 +19,15 @@
     vertical-align:bottom;
 }
         .auto-style1 {
-            width: 50%;
+            width: 74%;
             float:left;
             vertical-align:bottom;
         }
         td {
             vertical-align: bottom;
+        }
+        .auto-style2 {
+            height: 23px;
         }
     </style>
 
@@ -35,23 +38,32 @@
             <div class ="header-container">
                <div class ="header-item">
                    <asp:Image ID="Logo" runat="server" ImageUrl="~/Assets/Images/Web/logo.png" Width="500px" />
+                   <br />
+                   <table align="left" cellspacing="1" class="auto-style1">
+                       <tr>
+                           <td aria-selected="false" class="auto-style2">
+                               <asp:LinkButton ID="lbLoginOrLogout" runat="server" OnClick="lbLoginOrLogout_Click">Login</asp:LinkButton>
+                           </td>
+                           <td class="auto-style2">
+                               <asp:LinkButton ID="lbRegisterOrAccount" runat="server" OnClick="lbRegisterOrAccount_Click">Register</asp:LinkButton>
+                           </td>
+                       </tr>
+                       <tr>
+                           <td aria-selected="false">
+                               <asp:Label ID="lbUserMessage" runat="server"></asp:Label>
+                           </td>
+                           <td>
+                               <asp:Label ID="lbMoney" runat="server"></asp:Label>
+                           </td>
+                       </tr>
+                   </table>
                 </div>
-                 <div class ="header-item">
-                     <br /><br /><br /><br /><br /><br /><br />
-                <table align="left" cellspacing="1" class="auto-style1">
-                <tr>
-                    <td aria-selected="false">
-                        <asp:LinkButton ID="lbLoginOrLogout" runat="server" OnClick="lbLoginOrLogout_Click">Login</asp:LinkButton>
-                    </td>
-                    <td>
-                        <asp:LinkButton ID="lbRegisterOrAccount" runat="server" OnClick="lbRegisterOrAccount_Click">Register</asp:LinkButton>
-                    </td>
-                </tr>
-            </table>
-                 </div>
             </div>
 
             <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
+                <p>
+                    
+                </p>
                 </asp:ContentPlaceHolder>
             <div>
                 Piss off lad

@@ -146,6 +146,7 @@
     <Compile Include="Blackjack.aspx.designer.cs">
       <DependentUpon>Blackjack.aspx</DependentUpon>
     </Compile>
+    <Compile Include="BlackjackGame.cs" />
     <Compile Include="Creditcard.cs" />
     <Compile Include="DAO.cs" />
     <Compile Include="Home.aspx.cs">

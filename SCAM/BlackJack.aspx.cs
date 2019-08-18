@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace SCAM { 
+namespace SCAM
+{
 
     public enum Suit { h, s, c, d }
 
@@ -117,8 +119,8 @@ namespace SCAM {
 
     public partial class Blackjack : System.Web.UI.Page
     {
+
         Player player;
-        
         public Random rnd = new Random();
         Deck deck = new Deck();
 
@@ -127,6 +129,7 @@ namespace SCAM {
              </summary> */
         void Split()
         {
+
             List<Card> playerHand = ((List<Card>)Session["PlayerHand"]);
             /*<remarks>
              * The conditions stop the function from working unless it's a valid split.
@@ -142,17 +145,16 @@ namespace SCAM {
         {
             ((List<Card>)Session["PlayerHand"]).Add(deck.RandomPick(rnd));
 
-            playerTable.DataSource = ((List<Card>)Session["PlayerHand"]);
 
-            playerTable.DataBind();
             if (HandWorth(((List<Card>)Session["PlayerHand"])) > 21)
             {
                 lbWin.Text = "lose";
-
+                btnStay.Visible = false;
+                btnDoubleDown.Visible = false;
+                btnHit.Visible = false;
                 DisplayDealerHand(true);
             }
-            lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
-            lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
+
 
 
         }
@@ -167,32 +169,58 @@ namespace SCAM {
 
             int dealerHandWorth = HandWorth(((List<Card>)Session["DealerHand"]));
             int playerHandWorth = HandWorth(((List<Card>)Session["PlayerHand"]));
-            if ((21 - HandWorth(((List<Card>)Session["DealerHand"])) == (21 - HandWorth(((List<Card>)Session["PlayerHand"])))))
+            if ((HandWorth(((List<Card>)Session["DealerHand"])) == HandWorth(((List<Card>)Session["PlayerHand"]))))
             {
                 lbWin.Text = "break even";
                 DisplayDealerHand(true);
+                player.money += ((decimal)Session["bet"]);
+
 
             }
-            else if ((playerHandWorth >= 21) && (21 - playerHandWorth >= 0) && ((21 - playerHandWorth < 21 - dealerHandWorth) || (21 - dealerHandWorth < 0)))
+            else if ((playerHandWorth <= 21) && ((playerHandWorth > dealerHandWorth) || dealerHandWorth > 21))
             {
                 lbWin.Text = "Player win";
                 DisplayDealerHand(true);
-                decimal money = Convert.ToDecimal(lbMoney.Text);
-                money *= multiplier;
-                lbMoney.Text = money.ToString();
+                System.Diagnostics.Debug.WriteLine("Bet before " + ((decimal)Session["bet"]));
+                decimal newBet = ((decimal)Session["bet"]);
+                newBet *= multiplier;
+                System.Diagnostics.Debug.WriteLine("Bet wit multi: "+ ((decimal)Session["bet"]));
+                System.Diagnostics.Debug.WriteLine("Money before: " + player.money);
+                player.money += newBet;
+                System.Diagnostics.Debug.WriteLine("Money after: " + player.money);
+                player.blackjackWins++;
+
             }
-            else if ((dealerHandWorth >= 21) && (21 - dealerHandWorth >= 0) && ((21 - dealerHandWorth < 21 - playerHandWorth) || (21 - playerHandWorth < 0)))
+            else
             {
                 lbWin.Text = "Dealer Win";
+                player.blackjacklosses++;
                 DisplayDealerHand(true);
             }
 
 
+            Session["User"] = player;
+            using (SqlConnection conn = new SqlConnection())
+            {
+                conn.ConnectionString = DAO.ConnectionString();
 
-            dealerTable.DataSource = ((List<Card>)Session["DealerHand"]);
-            dealerTable.DataBind();
-            lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
-            lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
+                using (SqlCommand cmd = DAO.updatePlayer((Player)Session["User"]))
+                {
+                    conn.Open();
+                    cmd.Connection = conn;
+                    cmd.ExecuteScalar();
+
+                }
+
+            }
+            btnHit.Visible = false;
+            btnStay.Visible = false;
+            btnDoubleDown.Visible = false;
+            Session["OngoingBlackjack"] = null;
+
+
+
+            ((Label)this.Master.FindControl("lbMoney")).Text = player.money.ToString();
         }
         public int HandWorth(List<Card> hand)
         {
@@ -231,55 +259,113 @@ namespace SCAM {
         }
         protected void Page_Load(object sender, EventArgs e)
         {
-            player = (Player)Session["User"];
+            if (Session["User"] != null)
+            {
+                player = (Player)Session["User"];
+                if (Session["OngoingBlackjack"] != null) {
+                    btnDoubleDown.Visible = true;
+                    btnHit.Visible = true;
+                    btnStay.Visible = true;
+                }
+            }
+            else {
+                Response.Redirect("Home.aspx");
+            }
         }
 
         public void DisplayPlayerHand()
         {
             List<Card> playerHand = ((List<Card>)Session["PlayerHand"]);
+            System.Diagnostics.Debug.WriteLine("player hand " + playerHand.Count);
+
             for (int i = 0; i < playerHand.Count; i++)
-                ((Image)this.Page.FindControl("pCard" + i)).ImageUrl = playerHand[i].cardImage();
+                ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("pCard" + i)).ImageUrl = playerHand[i].cardImage();
+
+        }
+        public void ClearPlayerHand()
+        {
+
+            for (int i = 0; i < 7; i++)
+                ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("pCard" + i)).ImageUrl = "";
+        }
+
+        public void ClearDealerHand()
+        {
+
+            for (int i = 0; i < 7; i++)
+                ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("dCard" + i)).ImageUrl = "";
         }
         public void DisplayDealerHand(bool gameEnd)
         {
             List<Card> dealerHand = ((List<Card>)Session["DealerHand"]);
             if (gameEnd)
             {
-                ((Image)this.Page.FindControl("dCard0")).ImageUrl = dealerHand[0].cardImage();
+                ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("dCard0")).ImageUrl = dealerHand[0].cardImage();
             }
             else
             {
-                ((Image)this.Page.FindControl("dCard0")).ImageUrl = "~/Assets/Images/Cards/Down.png";
+                ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("dCard0")).ImageUrl = "~/Assets/Images/Cards/Down.png";
             }
             for (int i = 1; i < dealerHand.Count; i++)
-                ((Image)this.Page.FindControl("dCard" + i)).ImageUrl = dealerHand[i].cardImage();
+                ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("dCard" + i)).ImageUrl = dealerHand[i].cardImage();
         }
 
         protected void btnStart_Click(object sender, EventArgs e)
         {
-            List<Card> dealerHand = new List<Card>();
-            List<Card> playerHand = new List<Card>();
+
+            lbWin.Text = "";
+            try
+            {
+                decimal bet = Convert.ToDecimal(tbBet.Text);
+                Session["bet"] = bet;
+                System.Diagnostics.Debug.WriteLine("Bet:" + bet + " Money:" + player.money);
+                if (bet <= player.money && bet > 0 && player.money - bet >= 0)
+                {
+                    btnHit.Visible = true;
+                    btnStay.Visible = true;
+                    btnDoubleDown.Visible = true;
+
+                    List<Card> dealerHand = new List<Card>();
+                    List<Card> playerHand = new List<Card>();
+                    Session["OngoingBlackjack"] = true;
+                    Session["PlayerHand"] = null;
+                    Session["dealerHand"] = null;
+
+                    playerHand.Add(deck.RandomPick(rnd));
+                    playerHand.Add(deck.RandomPick(rnd));
+                    dealerHand.Add(deck.RandomPick(rnd));
+                    dealerHand.Add(deck.RandomPick(rnd));
+                    Session["PlayerHand"] = playerHand;
+                    Session["dealerHand"] = dealerHand;
 
 
-            playerHand.Add(deck.RandomPick(rnd));
-            playerHand.Add(deck.RandomPick(rnd));
-            dealerHand.Add(deck.RandomPick(rnd));
-            dealerHand.Add(deck.RandomPick(rnd));
-            Session["PlayerHand"] = playerHand;
-            Session["dealerHand"] = dealerHand;
-            playerTable.DataSource = Session["PlayerHand"];
-            playerTable.DataBind();
-            dealerTable.DataSource = Session["DealerHand"];
-            dealerTable.DataBind();
-            lbMoney.Text = tbMoney.Text;
 
 
+                    ClearDealerHand();
+                    ClearPlayerHand();
+                    DisplayPlayerHand();
+                    DisplayDealerHand(false);
+                    player.money -= bet;
+                    Session["User"] = player;
+                    ((Label)this.Master.FindControl("lbMoney")).Text = player.money.ToString();
 
+                    using (SqlConnection conn = new SqlConnection())
+                    {
+                        conn.ConnectionString = DAO.ConnectionString();
 
-            lbPlayerMoney.Text = HandWorth(((List<Card>)Session["PlayerHand"])).ToString();
-            lbDealerMoney.Text = HandWorth(((List<Card>)Session["DealerHand"])).ToString();
-            DisplayPlayerHand();
-            DisplayDealerHand(false);
+                        using (SqlCommand cmd = DAO.updatePlayer((Player)Session["User"]))
+                        {
+                            conn.Open();
+                            cmd.Connection = conn;
+                            cmd.ExecuteScalar();
+
+                        }
+
+                    }
+                }
+
+            }
+            catch { }
         }
 
         protected void btnHit_Click(object sender, EventArgs e)

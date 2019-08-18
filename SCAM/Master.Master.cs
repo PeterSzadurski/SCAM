@@ -16,6 +16,13 @@ namespace SCAM
             {
                 lbLoginOrLogout.Text = "Log Out";
                 lbRegisterOrAccount.Text = "Account";
+                lbUserMessage.Text = "You are logged in as: " + ((Player)Session["User"]).username;
+                lbMoney.Text = "$" + ((Player)Session["User"]).money.ToString();
+            }
+            else
+            {
+                lbMoney.Text = "";
+                lbUserMessage.Text = "";
             }
 
         }
@@ -26,7 +33,8 @@ namespace SCAM
             {
                 Response.Redirect("Login.aspx");
             }
-            else {
+            else
+            {
                 Session["User"] = null;
                 Response.Redirect("Home.aspx");
             }
@@ -37,7 +45,8 @@ namespace SCAM
             {
                 Response.Redirect("Register.aspx");
             }
-            else {
+            else
+            {
                 Response.Redirect("Account.aspx");
             }
         }

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Blackjack.aspx.cs" Inherits="SCAM.Blackjack2" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Master.Master" AutoEventWireup="true" CodeBehind="Blackjack.aspx.cs" Inherits="SCAM.Blackjack" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder" runat="server">
@@ -18,53 +18,41 @@
 }
 
     </style>
-</head>
-<body>
-    <form id="form1" runat="server">
+
+
+
         <div>
             <asp:Button ID="btnStart" runat="server" OnClick="btnStart_Click" Text="Start" />
             <table class="auto-style1">
                 <tr>
-                    <td>Player</td>
-                    <td>Dealer</td>
+                    <td>
+                        &nbsp;</td>
+                    <td>
+                        &nbsp;</td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:GridView ID="playerTable" runat="server">
-                        </asp:GridView>
-                    </td>
-                    <td>
-                        <asp:GridView ID="dealerTable" runat="server">
-                        </asp:GridView>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnHit" runat="server" OnClick="btnHit_Click" Text="Hit" />
+                        <asp:Button ID="btnHit" runat="server" OnClick="btnHit_Click" Text="Hit" Visible="False" />
                     &nbsp;
-                        <asp:Button ID="btnDoubleDown" runat="server" OnClick="btnDoubleDown_Click" Text="Double Down" />
+                        <asp:Button ID="btnDoubleDown" runat="server" OnClick="btnDoubleDown_Click" Text="Double Down" Visible="False" />
                     </td>
                     <td>
-                        <asp:Button ID="btnStay" runat="server" OnClick="btnStay_Click" Text="Stay" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:TextBox ID="tbMoney" runat="server"></asp:TextBox>
-                    </td>
-                    <td>
-            <asp:Label ID="lbMoney" runat="server"></asp:Label>
+                        <asp:Button ID="btnStay" runat="server" OnClick="btnStay_Click" Text="Stay" Visible="False" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <asp:Label ID="lbPlayerMoney" runat="server"></asp:Label>
+                        <asp:TextBox ID="tbBet" runat="server"></asp:TextBox>
+                    </td>
+                    <td>
+                        &nbsp;</td>
+                </tr>
+                <tr>
+                    <td class="auto-style2">
                     &nbsp;
-                        <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
-                    </td>
-                    <td>
-                        <asp:Label ID="lbDealerMoney" runat="server"></asp:Label>
-                    </td>
+                        </td>
+                    <td class="auto-style2">
+                        &nbsp;</td>
                 </tr>
             </table>
             <br />
@@ -98,5 +86,5 @@
             <asp:Image ID="sCard5" runat="server" Height="230px" />
             <asp:Image ID="sCard6" runat="server" Height="230px" />
         </div>
-    </form>
+
 </asp:Content>

@@ -15,8 +15,10 @@ namespace SCAM
             return "server=DESKTOP-20E1M0S\\SQLEXPRESS; database=ScamProject;Integrated Security = SSPI";
         }
         static public SqlCommand updatePlayer(Player player) {
+            System.Diagnostics.Debug.WriteLine("Username is:" + player.username);
             SqlCommand cmd = new SqlCommand();
             cmd.CommandText = "updatePlayer";
+            cmd.CommandType = CommandType.StoredProcedure;
             cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = player.username;
             cmd.Parameters.Add("@BlackjackWins", SqlDbType.Int).Value = player.blackjackWins;
             cmd.Parameters.Add("@RouletteWins ", SqlDbType.Int).Value = player.rouletteWins;
