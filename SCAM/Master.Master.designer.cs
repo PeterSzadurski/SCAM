@@ -31,13 +31,13 @@ namespace SCAM {
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
         
         /// <summary>
-        /// Logo control.
+        /// logoBtn control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Image Logo;
+        protected global::System.Web.UI.WebControls.ImageButton logoBtn;
         
         /// <summary>
         /// lbLoginOrLogout control.
@@ -56,6 +56,15 @@ namespace SCAM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.LinkButton lbRegisterOrAccount;
+        
+        /// <summary>
+        /// lbscoreBoard control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.LinkButton lbscoreBoard;
         
         /// <summary>
         /// lbUserMessage control.

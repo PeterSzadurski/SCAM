@@ -22,41 +22,9 @@
 
 
         <div>
-            <asp:Button ID="btnStart" runat="server" OnClick="btnStart_Click" Text="Start" />
-            <table class="auto-style1">
-                <tr>
-                    <td>
-                        &nbsp;</td>
-                    <td>
-                        &nbsp;</td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnHit" runat="server" OnClick="btnHit_Click" Text="Hit" Visible="False" />
-                    &nbsp;
-                        <asp:Button ID="btnDoubleDown" runat="server" OnClick="btnDoubleDown_Click" Text="Double Down" Visible="False" />
-                    </td>
-                    <td>
-                        <asp:Button ID="btnStay" runat="server" OnClick="btnStay_Click" Text="Stay" Visible="False" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:TextBox ID="tbBet" runat="server"></asp:TextBox>
-                    </td>
-                    <td>
-                        &nbsp;</td>
-                </tr>
-                <tr>
-                    <td class="auto-style2">
-                    &nbsp;
-                        </td>
-                    <td class="auto-style2">
-                        &nbsp;</td>
-                </tr>
-            </table>
+            <asp:Button ID="btnStart" runat="server" OnClick="btnStart_Click" Text="Start" BackColor="White" BorderColor="Black" Font-Size="XX-Large" />
+                        <asp:TextBox ID="tbBet" runat="server" Font-Size="XX-Large" Height="48px"></asp:TextBox>
             <br />
-            <asp:Label ID="lbWin" runat="server"></asp:Label>
             <br />
         <div class ="hand-container" id="dealerContainer" runat="server">
             <asp:Image ID="dCard0" runat="server" Height="230px" />
@@ -66,6 +34,12 @@
             <asp:Image ID="dCard4" runat="server" Height="230px" />
             <asp:Image ID="dCard5" runat="server" Height="230px" />
             <asp:Image ID="dCard6" runat="server" Height="230px" />
+            <br />
+&nbsp;<asp:Button ID="btnStay" runat="server" OnClick="btnStay_Click" Text="Stay" Visible="False" BackColor="White" BorderColor="Black" Font-Size="XX-Large" Height="121px" Width="172px" />
+                        <asp:Button ID="btnHit" runat="server" OnClick="btnHit_Click" Text="Hit" Visible="False" BackColor="White" BorderColor="Black" Font-Size="XX-Large" Height="121px" Width="200px" />
+                        <asp:Button ID="btnDoubleDown" runat="server" OnClick="btnDoubleDown_Click" Text="Double Down" Visible="False" BackColor="White" BorderColor="Black" Font-Size="XX-Large" Height="121px" />
+                    &nbsp;
+            <asp:Label ID="lbWin" runat="server" Font-Size="XX-Large"></asp:Label>
         </div>
         </div>
         <div class ="hand-container" id="playerContainer" runat="server">

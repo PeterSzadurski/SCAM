@@ -22,33 +22,6 @@ namespace SCAM {
         protected global::System.Web.UI.WebControls.Button btnStart;
         
         /// <summary>
-        /// btnHit control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnHit;
-        
-        /// <summary>
-        /// btnDoubleDown control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnDoubleDown;
-        
-        /// <summary>
-        /// btnStay control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnStay;
-        
-        /// <summary>
         /// tbBet control.
         /// </summary>
         /// <remarks>
@@ -58,13 +31,13 @@ namespace SCAM {
         protected global::System.Web.UI.WebControls.TextBox tbBet;
         
         /// <summary>
-        /// lbWin control.
+        /// lbBet control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbWin;
+        protected global::System.Web.UI.WebControls.Label lbBet;
         
         /// <summary>
         /// dealerContainer control.
@@ -137,6 +110,42 @@ namespace SCAM {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Image dCard6;
+        
+        /// <summary>
+        /// btnStay control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnStay;
+        
+        /// <summary>
+        /// btnHit control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnHit;
+        
+        /// <summary>
+        /// btnDoubleDown control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDoubleDown;
+        
+        /// <summary>
+        /// lbWin control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbWin;
         
         /// <summary>
         /// playerContainer control.

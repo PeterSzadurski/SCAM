@@ -17,7 +17,10 @@ namespace SCAM
                 lbLoginOrLogout.Text = "Log Out";
                 lbRegisterOrAccount.Text = "Account";
                 lbUserMessage.Text = "You are logged in as: " + ((Player)Session["User"]).username;
-                lbMoney.Text = "$" + ((Player)Session["User"]).money.ToString();
+                lbMoney.Text = "    |    $" + ((Player)Session["User"]).money.ToString();
+                if (((Player)Session["User"]).role == "Owner") {
+                    lbRegisterOrAccount.Text = "Control Panel";
+                }
             }
             else
             {
@@ -47,8 +50,25 @@ namespace SCAM
             }
             else
             {
-                Response.Redirect("Account.aspx");
+                if (((Player)Session["User"]).role == "Owner")
+                    Response.Redirect("Owner.aspx");
+                else
+                {
+                    Response.Redirect("Account.aspx");
+                }
             }
+        }
+
+        protected void lbscoreBoard_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("Scoreboard.aspx");
+        }
+
+
+
+        protected void logoBtn_Click(object sender, ImageClickEventArgs e)
+        {
+            Response.Redirect("Home.aspx");
         }
     }
 }

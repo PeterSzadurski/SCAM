@@ -321,6 +321,7 @@ namespace SCAM
                 System.Diagnostics.Debug.WriteLine("Bet:" + bet + " Money:" + player.money);
                 if (bet <= player.money && bet > 0 && player.money - bet >= 0)
                 {
+                    lbBet.Text = "";
                     btnHit.Visible = true;
                     btnStay.Visible = true;
                     btnDoubleDown.Visible = true;
@@ -363,9 +364,14 @@ namespace SCAM
 
                     }
                 }
+                else{
+                    lbBet.Text = "Your bet exceeds your money";
+                }
 
             }
-            catch { }
+            catch {
+                lbBet.Text = "Please enter a valid bet";
+            }
         }
 
         protected void btnHit_Click(object sender, EventArgs e)

@@ -18,55 +18,102 @@
     text-align: left;
     vertical-align:bottom;
 }
-        .auto-style1 {
-            width: 74%;
-            float:left;
-            vertical-align:bottom;
-        }
         td {
             vertical-align: bottom;
         }
-        .auto-style2 {
-            height: 23px;
-        }
+        
+        .navbar {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content LinkButton:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
     </style>
 
 </head>
 <body>
     <form id="form1" runat="server">
         <div>
-            <div class ="header-container">
-               <div class ="header-item">
-                   <asp:Image ID="Logo" runat="server" ImageUrl="~/Assets/Images/Web/logo.png" Width="500px" />
-                   <br />
-                   <table align="left" cellspacing="1" class="auto-style1">
-                       <tr>
-                           <td aria-selected="false" class="auto-style2">
-                               <asp:LinkButton ID="lbLoginOrLogout" runat="server" OnClick="lbLoginOrLogout_Click">Login</asp:LinkButton>
-                           </td>
-                           <td class="auto-style2">
-                               <asp:LinkButton ID="lbRegisterOrAccount" runat="server" OnClick="lbRegisterOrAccount_Click">Register</asp:LinkButton>
-                           </td>
-                       </tr>
-                       <tr>
-                           <td aria-selected="false">
-                               <asp:Label ID="lbUserMessage" runat="server"></asp:Label>
-                           </td>
-                           <td>
-                               <asp:Label ID="lbMoney" runat="server"></asp:Label>
-                           </td>
-                       </tr>
-                   </table>
+            <asp:ImageButton ID="logoBtn" runat="server" ImageUrl="~/Assets/Images/Web/logo.png" OnClick="logoBtn_Click" Width="700px" />
+            <br />
+            <div class ="navbar">
+                <asp:LinkButton ID="lbLoginOrLogout" runat="server" OnClick="lbLoginOrLogout_Click">Login</asp:LinkButton>
+                <asp:LinkButton ID="lbRegisterOrAccount" runat="server" OnClick="lbRegisterOrAccount_Click">Register</asp:LinkButton>
+                <asp:LinkButton ID="lbscoreBoard" runat="server" OnClick="lbscoreBoard_Click" >Scoreboard</asp:LinkButton>
+                <div class ="dropdown">
+                    <button class ="dropbtn">Games<i class ="down"</button>
+                    <div class ="dropdown-content">
+                        <a href="Blackjack.aspx"> BlackJack</a>
+                        <a href="slots.aspx"> Slot Machine</a>
+                        <a href="Roulette.aspx"> Roulette</a>
+                    </div>
                 </div>
+
             </div>
 
+                                           <asp:Label ID="lbUserMessage" runat="server"></asp:Label>
+                                           <asp:Label ID="lbMoney" runat="server"></asp:Label>
+                        <hr />
+
+
             <asp:ContentPlaceHolder ID="ContentPlaceHolder" runat="server">
-                <p>
-                    
-                </p>
+
                 </asp:ContentPlaceHolder>
             <div>
-                Piss off lad
+                
               </div>
         </div>
     </form>
