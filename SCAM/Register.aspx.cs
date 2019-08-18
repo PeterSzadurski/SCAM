@@ -34,14 +34,16 @@ namespace SCAM
                         cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = tbPassword.Text;
                         cmd.ExecuteNonQuery();
                         conn.Close();
-                        cmd.CommandText = "SelectAccount";
-                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
-                        cmd.Parameters.Clear();
-                        cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = tbUsername.Text;
-                        SqlDataReader reader = cmd.ExecuteReader();
+            //            conn.Open();
+              //          cmd.Parameters.Clear();
+                //        cmd.CommandText = "SelectAccount";
+                  //      cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                    //    cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = tbUsername.Text;
+                     //   cmd.Parameters.Add("@Password", SqlDbType.VarChar).Value = tbPassword.Text;
+                       // SqlDataReader reader = cmd.ExecuteReader();
 
-                        Player player = Player.GetPlayer(reader);
-                        Session["User"] = player;
+                       // Player player = Player.GetPlayer(reader);
+                     //   Session["User"] = player;
                         Server.Transfer("Home.aspx");
                     }
                 }

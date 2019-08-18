@@ -12,7 +12,7 @@ namespace SCAM
     {
         public static string ConnectionString()
         {
-            return "server=DESKTOP-20E1M0S\\SQLEXPRESS; database=ScamProject;Integrated Security = SSPI";
+            return "server=(local); database=ScamProject;Integrated Security = SSPI";
         }
         static public SqlCommand updatePlayer(Player player) {
             System.Diagnostics.Debug.WriteLine("Username is:" + player.username);
