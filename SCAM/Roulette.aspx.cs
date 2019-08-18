@@ -33,7 +33,7 @@ namespace SCAM
         {
             Session["alreadyWon"] = null;
             int wheelLandingPoint = RandomNumber();
-            wheelLandingPoint = 5;
+         //   wheelLandingPoint = 5;
 
             RouletteNumberlbl.Text = wheelLandingPoint.ToString();
             List<int> numBets = NumberBets();
@@ -167,6 +167,8 @@ namespace SCAM
                     int[] bets = { 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36 };
                     WinOrLose(wheelLandingPoint, bets, 2);
                 }
+            ((Label)this.Master.FindControl("lbMoney")).Text = player.money.ToString();
+
             }
             catch { }
 
@@ -227,6 +229,8 @@ namespace SCAM
             player.money += (decimal)Session["bet"] * multi;
             System.Diagnostics.Debug.WriteLine("Profit: " + player.money);
             Moneylbl.Text = player.money.ToString();
+            ((Label)this.Master.FindControl("lbMoney")).Text = player.money.ToString();
+
             //ViewState["varible"] = money;
             resultLbl.Text = "You win";
             Session["alreadyWon"] = true;

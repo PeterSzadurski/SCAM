@@ -128,7 +128,7 @@
     <Content Include="Owner.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="Roulette.aspx" />
-    <Content Include="Scoreboard.aspx" />
+    <Content Include="Slots.aspx" />
     <Content Include="UserAccount.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -193,12 +193,12 @@
     <Compile Include="Roulette.aspx.designer.cs">
       <DependentUpon>Roulette.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Scoreboard.aspx.cs">
-      <DependentUpon>Scoreboard.aspx</DependentUpon>
+    <Compile Include="Slots.aspx.cs">
+      <DependentUpon>Slots.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Scoreboard.aspx.designer.cs">
-      <DependentUpon>Scoreboard.aspx</DependentUpon>
+    <Compile Include="Slots.aspx.designer.cs">
+      <DependentUpon>Slots.aspx</DependentUpon>
     </Compile>
     <Compile Include="UserAccount.aspx.cs">
       <DependentUpon>UserAccount.aspx</DependentUpon>
