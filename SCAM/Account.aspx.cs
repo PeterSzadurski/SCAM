@@ -44,6 +44,11 @@ namespace SCAM
                             cmd.CommandType = CommandType.StoredProcedure;
                             cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = player.username;
                             SqlDataReader reader = cmd.ExecuteReader();
+                            if (reader.HasRows) {
+                                btnDeleteCard.Enabled = true;
+                                btnPayWithCard.Enabled = true;
+                                tbPay.Enabled = true;
+                            }
                             while (reader.Read())
                             {
                                 creditcards.Add(new Creditcard(

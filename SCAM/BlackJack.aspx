@@ -24,6 +24,8 @@
         <div>
             <asp:Button ID="btnStart" runat="server" OnClick="btnStart_Click" Text="Start" BackColor="White" BorderColor="Black" Font-Size="XX-Large" />
                         <asp:TextBox ID="tbBet" runat="server" Font-Size="XX-Large" Height="48px"></asp:TextBox>
+            <asp:Label ID="lbBet" runat="server" Font-Size="XX-Large"></asp:Label>
+            <br />
             <br />
             <br />
         <div class ="hand-container" id="dealerContainer" runat="server">

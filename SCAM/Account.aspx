@@ -7,6 +7,9 @@
         .auto-style3 {
             height: 22px;
         }
+        .auto-style4 {
+            width: 398px;
+        }
     </style>
     <script>
         function radioCheck(id) {
@@ -110,7 +113,7 @@
     <br />
     <table cellspacing="1" class="auto-style2">
         <tr>
-            <td>
+            <td class="auto-style4">
     <asp:GridView ID="gridCredit" runat="server" AutoGenerateColumns="False">
         <Columns>
             <asp:TemplateField>
@@ -131,15 +134,15 @@
     </asp:GridView>
             </td>
             <td>
-                <asp:TextBox ID="tbPay" runat="server"></asp:TextBox>
+                <asp:TextBox ID="tbPay" runat="server" Enabled="False"></asp:TextBox>
             </td>
         </tr>
         <tr>
-            <td>
-                <asp:Button ID="btnDeleteCard" runat="server" OnClick="btnDeleteCard_Click" Text="Delete Card" />
+            <td class="auto-style4">
+                <asp:Button ID="btnDeleteCard" runat="server" OnClick="btnDeleteCard_Click" Text="Delete Card" Enabled="False" />
             </td>
             <td>
-                <asp:Button ID="btnPayWithCard" runat="server" Text="Pay With Card" OnClick="btnPayWithCard_Click" />
+                <asp:Button ID="btnPayWithCard" runat="server" Text="Pay With Card" OnClick="btnPayWithCard_Click" Enabled="False" />
             </td>
         </tr>
     </table>

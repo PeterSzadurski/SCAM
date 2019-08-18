@@ -33,7 +33,6 @@ namespace SCAM
         {
             using (SqlConnection conn = new SqlConnection()) {
                 conn.ConnectionString = DAO.ConnectionString();
-                int foundUser = 0;
                     try
                     {
                         using (SqlCommand cmd = new SqlCommand()) {
@@ -51,7 +50,11 @@ namespace SCAM
                         }
 
                             conn.Close();
-                            Response.Redirect("Account.aspx");
+                        if (((Player)Session["User"]).role == "Owner") {
+                            Response.Redirect("Owner.aspx");
+                        }
+                        else
+                        Response.Redirect("Account.aspx");
                         }
                     }
                     catch (Exception ex) {

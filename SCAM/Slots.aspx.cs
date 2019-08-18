@@ -35,11 +35,14 @@ namespace SCAM
 
         protected void Spinbtn_Click(object sender, EventArgs e)
         {
-         //   try {
-                decimal bet = 50;
-               // bet = Convert.ToDecimal("50");
-                if (bet > 0 && player.money - bet > -1)
+            //   try {
+            //decimal bet = 50;
+            decimal bet;
+              try {
+                bet = Convert.ToDecimal(tbBet.Text);
+            if (bet > 0 && player.money - bet > -1)
                 {
+                resultLbl.Text = "";
                     Session["bet"] = bet;
                     SpinandDisplay();
 
@@ -124,9 +127,9 @@ namespace SCAM
 
                     }
                 }
-           // }catch{
-            //    lbWarning.Text = "Please enter a valid number";
-           // }
+            }catch{
+                lbWarning.Text = "Please enter a valid number";
+            }
 
             }
 
@@ -139,9 +142,24 @@ namespace SCAM
                 for (int col = 0; col < 3; col++)
                 {
                     Pos[row, col] = rnd.Next(5);
-                    ((Label)this.Master.FindControl("ContentPlaceHolder").FindControl("row" + row + "x" + "col" + col + "lbl")).Text = Pos[row, col].ToString();
-                }
+                    if (col == 0)
+                    {
+                        ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("row" + row + "x" + "col" + col + "lbl")).ImageUrl = "~/Assets/Images/Slots/" + Pos[row, col].ToString() + "Top.png";
+
+                    }
+                    else if (col == 2)
+                    {
+                        ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("row" + row + "x" + "col" + col + "lbl")).ImageUrl = "~/Assets/Images/Slots/" + Pos[row, col].ToString() + "Bot.png";
+
+                    }
+                    else
+                    {
+                        ((Image)this.Master.FindControl("ContentPlaceHolder").FindControl("row" + row + "x" + "col" + col + "lbl")).ImageUrl = "~/Assets/Images/Slots/" + Pos[row, col].ToString() + ".png";
+                    }
+                    }
             }
+            
+
         }
 
         private void lose()

@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,12 +16,42 @@ namespace SCAM
 
             if (Session["User"] != null)
             {
-                lbLoginOrLogout.Text = "Log Out";
-                lbRegisterOrAccount.Text = "Account";
-                lbUserMessage.Text = "You are logged in as: " + ((Player)Session["User"]).username;
-                lbMoney.Text = "    |    $" + ((Player)Session["User"]).money.ToString();
-                if (((Player)Session["User"]).role == "Owner") {
-                    lbRegisterOrAccount.Text = "Control Panel";
+
+                using (SqlConnection conn = new SqlConnection())
+                {
+                    conn.ConnectionString = DAO.ConnectionString();
+
+
+                    using (SqlCommand cmd = new SqlCommand())
+                    {
+                        cmd.Connection = conn;
+                        conn.Open();
+                        cmd.CommandText = "SelectAccountNoPass";
+                        cmd.CommandType = System.Data.CommandType.StoredProcedure;
+                        cmd.Parameters.Add("@Username", SqlDbType.VarChar).Value = ((Player)Session["User"]).username;
+
+                        SqlDataReader reader = cmd.ExecuteReader();
+                        if (reader.Read())
+                        {
+
+                            Player player = Player.GetPlayer(reader);
+                            Session["User"] = player;
+                        }
+
+                        conn.Close();
+                    }
+                
+                    
+
+
+                    lbLoginOrLogout.Text = "Log Out";
+                    lbRegisterOrAccount.Text = "Account";
+                    lbUserMessage.Text = "You are logged in as: " + ((Player)Session["User"]).username;
+                    lbMoney.Text = "    |    $" + ((Player)Session["User"]).money.ToString();
+                    if (((Player)Session["User"]).role == "Owner")
+                    {
+                        lbRegisterOrAccount.Text = "Control Panel";
+                    }
                 }
             }
             else
@@ -39,6 +71,8 @@ namespace SCAM
             else
             {
                 Session["User"] = null;
+                Session["PlayerHand"] = null;
+                Session["DealerHand"] = null;
                 Response.Redirect("Home.aspx");
             }
         }
